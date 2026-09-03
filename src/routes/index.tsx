@@ -1,24 +1,31 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { Landing } from "@/components/pucham/Landing";
+import { ChatPanel } from "@/components/pucham/ChatPanel";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "PUCHAM AI — Manglish Roasting AI Chatbot" },
+      {
+        name: "description",
+        content:
+          "Chodikku mone... judge cheyyan njangal ready aanu. PUCHAM AI roasts your excuses, exam panic, diet promises and thallu in Manglish.",
+      },
+      { property: "og:title", content: "PUCHAM AI — Manglish Roasting AI" },
+      {
+        property: "og:description",
+        content:
+          "Sarcasm Engine: ONLINE. Thallu Detector: ACTIVE. Get roasted in Manglish by a sarcastic Malayali AI friend.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+  const [entered, setEntered] = useState(false);
+  return entered ? <ChatPanel /> : <Landing onEnter={() => setEntered(true)} />;
 }
