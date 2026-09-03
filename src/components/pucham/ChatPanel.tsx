@@ -24,7 +24,7 @@ type Msg = {
   content: string;
   mode: PuchamMode;
   report?: PuchamReport;
-  reaction?: string;
+  reaction?: string | undefined;
 };
 
 const DEFAULT_SETTINGS: Settings = {
